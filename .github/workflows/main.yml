@@ -1,16 +1,16 @@
-name: gcld3
+#name: gcld3
 
-on: [push, pull_request]
+#on: [push, pull_request]
 
-jobs:
+#jobs:
 
-  test:
-    name: ${{ matrix.os }}-${{matrix.python-version}}-test
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest,  macos-latest]
-        python-version: [3.6, 3.7, 3.8, pypy3]
+# test:
+#    name: ${{ matrix.os }}-${{matrix.python-version}}-test
+#    runs-on: ${{ matrix.os }}
+#    strategy:
+#      matrix:
+#os: [ubuntu-latest,  macos-latest]
+        #        python-version: [3.6, 3.7, 3.8, pypy3]
 
     steps:
     - uses: actions/checkout@v2
