@@ -1,191 +1,164 @@
-# Compact Language Detector v3 (CLD3)
+# Setup environment to build google/cld3
 
-* [Model](#model)
-* [Supported Languages](#supported-languages)
-* [Installation](#installation)
-* [Bugs and Feature Requests](#bugs-and-feature-requests)
-* [Credits](#credits)
+## Getting started
 
-### Model
+### Prequiste
 
-CLD3 is a neural network model for language identification. This package
- contains the inference code and a trained model. The inference code
- extracts character ngrams from the input text and computes the fraction
- of times each of them appears. For example, as shown in the figure below,
- if the input text is "banana", then one of the extracted trigrams is "ana"
- and the corresponding fraction is 2/4. The ngrams are hashed down to an id
- within a small range, and each id is represented by a dense embedding vector
- estimated during training.
+OS: Ubuntu 18.04.06 LTS
 
-The model averages the embeddings corresponding to each ngram type according
- to the fractions, and the averaged embeddings are concatenated to produce
- the embedding layer. The remaining components of the network are a hidden
- (Rectified linear) layer and a softmax layer.
+Source: Protobuf-2.5
 
-To get a language prediction for the input text, we simply perform a forward
- pass through the network.
+Source: cld3
 
-![Figure](model.png "CLD3")
+gcc/g++ compiler: 4.9.3 ( <5.0 )
 
-### Supported Languages
 
-The model outputs BCP-47-style language codes, shown in the table below. For
-some languages, output is differentiated by script. Language and script names
-from
-[Unicode CLDR](https://github.com/unicode-cldr/cldr-localenames-modern/blob/master/main/en).
+### Download external source
 
-Output Code | Language Name   | Script Name
------------ | --------------- | ------------------------------------------
-af          | Afrikaans       | Latin
-am          | Amharic         | Ethiopic
-ar          | Arabic          | Arabic
-bg          | Bulgarian       | Cyrillic
-bg-Latn     | Bulgarian       | Latin
-bn          | Bangla          | Bangla
-bs          | Bosnian         | Latin
-ca          | Catalan         | Latin
-ceb         | Cebuano         | Latin
-co          | Corsican        | Latin
-cs          | Czech           | Latin
-cy          | Welsh           | Latin
-da          | Danish          | Latin
-de          | German          | Latin
-el          | Greek           | Greek
-el-Latn     | Greek           | Latin
-en          | English         | Latin
-eo          | Esperanto       | Latin
-es          | Spanish         | Latin
-et          | Estonian        | Latin
-eu          | Basque          | Latin
-fa          | Persian         | Arabic
-fi          | Finnish         | Latin
-fil         | Filipino        | Latin
-fr          | French          | Latin
-fy          | Western Frisian | Latin
-ga          | Irish           | Latin
-gd          | Scottish Gaelic | Latin
-gl          | Galician        | Latin
-gu          | Gujarati        | Gujarati
-ha          | Hausa           | Latin
-haw         | Hawaiian        | Latin
-hi          | Hindi           | Devanagari
-hi-Latn     | Hindi           | Latin
-hmn         | Hmong           | Latin
-hr          | Croatian        | Latin
-ht          | Haitian Creole  | Latin
-hu          | Hungarian       | Latin
-hy          | Armenian        | Armenian
-id          | Indonesian      | Latin
-ig          | Igbo            | Latin
-is          | Icelandic       | Latin
-it          | Italian         | Latin
-iw          | Hebrew          | Hebrew
-ja          | Japanese        | Japanese
-ja-Latn     | Japanese        | Latin
-jv          | Javanese        | Latin
-ka          | Georgian        | Georgian
-kk          | Kazakh          | Cyrillic
-km          | Khmer           | Khmer
-kn          | Kannada         | Kannada
-ko          | Korean          | Korean
-ku          | Kurdish         | Latin
-ky          | Kyrgyz          | Cyrillic
-la          | Latin           | Latin
-lb          | Luxembourgish   | Latin
-lo          | Lao             | Lao
-lt          | Lithuanian      | Latin
-lv          | Latvian         | Latin
-mg          | Malagasy        | Latin
-mi          | Maori           | Latin
-mk          | Macedonian      | Cyrillic
-ml          | Malayalam       | Malayalam
-mn          | Mongolian       | Cyrillic
-mr          | Marathi         | Devanagari
-ms          | Malay           | Latin
-mt          | Maltese         | Latin
-my          | Burmese         | Myanmar
-ne          | Nepali          | Devanagari
-nl          | Dutch           | Latin
-no          | Norwegian       | Latin
-ny          | Nyanja          | Latin
-pa          | Punjabi         | Gurmukhi
-pl          | Polish          | Latin
-ps          | Pashto          | Arabic
-pt          | Portuguese      | Latin
-ro          | Romanian        | Latin
-ru          | Russian         | Cyrillic
-ru-Latn     | Russian         | English
-sd          | Sindhi          | Arabic
-si          | Sinhala         | Sinhala
-sk          | Slovak          | Latin
-sl          | Slovenian       | Latin
-sm          | Samoan          | Latin
-sn          | Shona           | Latin
-so          | Somali          | Latin
-sq          | Albanian        | Latin
-sr          | Serbian         | Cyrillic
-st          | Southern Sotho  | Latin
-su          | Sundanese       | Latin
-sv          | Swedish         | Latin
-sw          | Swahili         | Latin
-ta          | Tamil           | Tamil
-te          | Telugu          | Telugu
-tg          | Tajik           | Cyrillic
-th          | Thai            | Thai
-tr          | Turkish         | Latin
-uk          | Ukrainian       | Cyrillic
-ur          | Urdu            | Arabic
-uz          | Uzbek           | Latin
-vi          | Vietnamese      | Latin
-xh          | Xhosa           | Latin
-yi          | Yiddish         | Hebrew
-yo          | Yoruba          | Latin
-zh          | Chinese         | Han (including Simplified and Traditional)
-zh-Latn     | Chinese         | Latin
-zu          | Zulu            | Latin
+#### Soure code google/Protobuf-2.5.0
 
-### Installation
-CLD3 is designed to run in the Chrome browser, so it relies on code in
-[Chromium](http://www.chromium.org/).
-The steps for building and running the demo of the language detection model are:
+[https://github.com/google/protobuf/releases/download/v2.5.0/protobuf-2.5.0.tar.gz](https://github.com/google/protobuf/releases/download/v2.5.0/protobuf-2.5.0.tar.gz)
 
-- [check out](http://www.chromium.org/developers/how-tos/get-the-code) the
-  Chromium repository.
-- copy the code to `//third_party/cld_3`
-- Uncomment `language_identifier_main` executable in `src/BUILD.gn`.
-- build and run the model using the commands:
+#### Source code google/cld3
 
-```shell
-gn gen out/Default
-ninja -C out/Default third_party/cld_3/src/src:language_identifier_main
-out/Default/language_identifier_main
+[https://github.com/google/cld3](https://github.com/google/cld3)
+
+### Install gcc/g++ 4.9.3
+
+ignore if your systems installed gcc/g++ version 4.9.3 or lower 5.0
+
+For safety, you should remove '--no-check-certificate' and add https in url
+
+#### download deb package
+
+```bash
+wget --no-check-certificate http://launchpadlibrarian.net/247707088/libmpfr4_3.1.4-1_amd64.deb &&
+wget --no-check-certificate http://launchpadlibrarian.net/253728424/libasan1_4.9.3-13ubuntu2_amd64.deb &&
+wget --no-check-certificate http://launchpadlibrarian.net/253728426/libgcc-4.9-dev_4.9.3-13ubuntu2_amd64.deb &&
+wget --no-check-certificate http://launchpadlibrarian.net/253728314/gcc-4.9-base_4.9.3-13ubuntu2_amd64.deb &&
+wget --no-check-certificate http://launchpadlibrarian.net/253728399/cpp-4.9_4.9.3-13ubuntu2_amd64.deb &&
+wget --no-check-certificate http://launchpadlibrarian.net/253728404/gcc-4.9_4.9.3-13ubuntu2_amd64.deb &&
+wget --no-check-certificate http://launchpadlibrarian.net/253728432/libstdc++-4.9-dev_4.9.3-13ubuntu2_amd64.deb &&
+wget --no-check-certificate http://launchpadlibrarian.net/253728401/g++-4.9_4.9.3-13ubuntu2_amd64.deb
 ```
-### Bugs and Feature Requests
 
-Open a [GitHub issue](https://github.com/google/cld3/issues) for this repository to file bugs and feature requests.
+#### Install deb package
 
-### Announcements and Discussion
+Please aware about the order of command
 
-For announcements regarding major updates as well as general discussion list, please subscribe to:
-[cld3-users@googlegroups.com](https://groups.google.com/forum/#!forum/cld3-users)
+```bash
+sudo dpkg -i gcc-4.9-base_4.9.3-13ubuntu2_amd64.deb &&
+sudo dpkg -i libmpfr4_3.1.4-1_amd64.deb &&
+sudo dpkg -i libasan1_4.9.3-13ubuntu2_amd64.deb &&
+sudo dpkg -i libgcc-4.9-dev_4.9.3-13ubuntu2_amd64.deb &&
+sudo dpkg -i cpp-4.9_4.9.3-13ubuntu2_amd64.deb &&
+sudo dpkg -i gcc-4.9_4.9.3-13ubuntu2_amd64.deb &&
+sudo dpkg -i libstdc++-4.9-dev_4.9.3-13ubuntu2_amd64.deb &&
+sudo dpkg -i g++-4.9_4.9.3-13ubuntu2_amd64.deb
+```
 
-### Credits
 
-Original authors of the code in this package include (in alphabetical order):
+#### Check gcc/g++ in your systems is 4.9 or not
 
-* Alex Salcianu
-* Andy Golding
-* Anton Bakalov
-* Chris Alberti
-* Daniel Andor
-* David Weiss
-* Emily Pitler
-* Greg Coppola
-* Jason Riesa
-* Kuzman Ganchev
-* Michael Ringgaard
-* Nan Hua
-* Ryan McDonald
-* Slav Petrov
-* Stefan Istrate
-* Terry Koo
+```bash
+update-alternatives --query gcc
+```
+
+```bash
+update-alternatives --query g++
+```
+
+#### Set gcc/g++ ver 4.9 to default
+
+ignore if your gcc/g++ version is 4.9
+
+Because gcc/g++ default in Ubuntu 18 is gcc/g++ version 7, so feel free to change command bellow by your gcc/g++ version installed
+
+```bash
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 100
+```
+
+```bash
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 50
+```
+
+```bash
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 100
+```
+
+```bash
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 50
+```
+
+#### Check gcc/g++ default use version 4.9 after setup
+
+```bash
+update-alternatives --query gcc
+```
+
+```bash
+update-alternatives --query g++
+```
+
+### Install protobuf-2.5.0 from source by step following
+
+```bash
+wget https://github.com/google/protobuf/releases/download/v2.5.0/protobuf-2.5.0.tar.gz
+```
+
+```bash
+tar xvf protobuf-2.5.0.tar.gz
+```
+
+```bash
+cd protobuf-2.5.0
+```
+
+```bash
+./autogen.sh
+```
+
+```bash
+./configure --prefix=/usr
+```
+
+```bash
+make
+```
+
+```bash
+sudo make install
+```
+
+```bash
+protoc --version
+```
+
+
+### build google/cld3 to shared library
+
+```bash
+cd cld3-master
+```
+
+```bash
+cmake -S .
+```
+
+```bash
+make
+```
+
+## Build this project
+
+Make sure you setup environment to build google/cld3 successful
+
+do step bellow to build detector
+
+```bash
+cmake -S .
+```
+
+```bash
+make
+```
